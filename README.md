@@ -1,6 +1,10 @@
 # WebsiteChangeNotifier
 
-A little tool written in Go that will take a web address as an input and informs you when something has changed (partly an experiment)
+A small tool written in Go that will take a web address as an input and informs you when something has changed (partly an experiment). it will store snapshots of the webpages (only the body) (but it will need to store them in a format that doesn't take too much space but it's still diffable and return what the difference is)
+
+it will allow you to specify where and how it should store the result or even email it to you
+
+A nifty tool written in Go that keeps tabs on changes in your favorite web pages. It takes a web address, tracks any tweaks (mostly for fun), and stores snapshots of the webpages - just the <body>. It cleverly manages storage space while still making it easy to spot the differences. Plus, you're the boss: choose where and how to stash the results or get them sent straight to your inbox!
 
 ## Installation
 
@@ -27,18 +31,23 @@ OR
 go run main.go -url=http://localhost:8090 -config=../../email_config.json -bolt-path=./my.db
 ```
 
+# Motivation
+
+This was a hubby project of mine aiming to get my hands dirty with Golang. While I initially planned to expand its features, I've had to set it aside for now due to pressing personal commitments.
+
+The inspiration for this project struck when I needed to secure an appointment from an embassy's website. They released a limited number of slots daily and I wanted to be one of the first people to be notified. This sort of websites usually don't require authentication and therefore it's easy to set up a crawler. However, I didn't want to be constantly checking the website and I wanted to be notified when the website changed. I also wanted to be able to exclude certain parts of the website from the change detection as they were irrelevant to me.
+
 # Longer Description
 
-it will store snapshots of the webpages (only the body) (but it will need to store them in a format that doesn't take too much space but it's still diffable and return what the difference is)
-
-it will allow you to specify where and how it should store the result or even email it to you
-
-# TODO
+# TODO for future
 
 - Parse the cli for:
   - |~~Web address to listen for~~
-  -  ~~An email address or a google cloud/AWS email service in which case a config file~~
-- ~~~~Take a snapshot of the current state of web document's body and store it~~
+  - ~~An email address or a google cloud/AWS email service in which case a config file~~
+- ```Take a snapshot of the current state of web document's body and store it~~
+
+  ```
+
 - ~~start the cron job (or we can just call it listener) and have it running forever~~
   - at every specified tick, compare the registered document's body with what's stored on file
   - if a change is detected, compose an email and send it off to the registered email address or pass it to the configured service
@@ -55,7 +64,7 @@ it will allow you to specify where and how it should store the result or even em
 
 # Database
 
-Talk about using bbolt (a key value store db written in go) and the data model
+bbolt (a key value store db written in go) is used to store the snapshots and other metadata.
 
 Normalised model
 
